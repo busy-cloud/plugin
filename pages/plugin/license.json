@@ -5,7 +5,7 @@
     {
       "icon": "upload",
       "type": "upload",
-      "upload": "/api/iot/license/upload"
+      "upload": "/api/plugin/license/upload"
     }
   ],
   "operators": [
@@ -15,7 +15,7 @@
       "action": {
         "type": "link",
         "external": true,
-        "link": "/api/iot/license/:app_id/download"
+        "link": "/api/plugin/license/:app_id/download"
       }
     }
   ],
@@ -54,5 +54,5 @@
       "type": "tags"
     }
   ],
-  "load_api": "iot/license/list"
+  "load_api": "plugin/license/list"
 }

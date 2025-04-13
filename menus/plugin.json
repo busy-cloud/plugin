@@ -5,11 +5,7 @@
   "items": [
     {
       "name": "插件列表",
-      "url": "page/plugin/apps"
-    },
-    {
-      "name": "授权证书",
-      "url": "page/plugin/license"
+      "url": "page/plugin/plugin"
     }
   ]
 }
