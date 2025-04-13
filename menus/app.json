@@ -1,0 +1,15 @@
+{
+  "name": "插件管理",
+  "icon": "appstore",
+  "index": 500,
+  "items": [
+    {
+      "name": "插件列表",
+      "url": "page/plugin/apps"
+    },
+    {
+      "name": "授权证书",
+      "url": "page/plugin/license"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "title": "插件列表",
+  "template": "table",
+  "toolbar": [
+    {
+      "label": "上传",
+      "icon": "upload",
+      "type": "button"
+    }
+  ],
+  "columns": [
+    {
+      "key": "icon",
+      "label": "图标",
+      "type": "icon"
+    },
+    {
+      "key": "id",
+      "label": "ID",
+      "action": {
+        "type": "script",
+        "script": "window.open('/plugin/'+data.id)"
+      }
+    },
+    {
+      "key": "name",
+      "label": "名称"
+    },
+    {
+      "key": "description",
+      "label": "说明"
+    },
+    {
+      "key": "version",
+      "label": "版本"
+    },
+    {
+      "key": "author",
+      "label": "作者"
+    },
+    {
+      "key": "copyright",
+      "label": "版权"
+    }
+  ],
+  "load_api": "plugin/list",
+  "load_success": "data.forEach(d=>{ d.icon = '/api/plugin/' + d.id + '/icon' })"
+}
