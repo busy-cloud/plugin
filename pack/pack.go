@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"crypto/ed25519"
 	"encoding/hex"
-	"github.com/busy-cloud/plugin/internal"
 	"hash/crc32"
 	"io"
 	"os"
@@ -13,7 +12,7 @@ import (
 	"strings"
 )
 
-func Pack(dir string, out string) error {
+func Pack(key string, dir string, out string) error {
 	dir = strings.ReplaceAll(dir, "\\", "/") //全部使用unix分隔符
 
 	f, err := os.Create(out)
@@ -93,7 +92,7 @@ func Pack(dir string, out string) error {
 	}
 
 	//写入hash文件
-	w, err := zipWriter.Create(internal.ListName)
+	w, err := zipWriter.Create(ListName)
 	if err != nil {
 		return err
 	}
@@ -102,9 +101,13 @@ func Pack(dir string, out string) error {
 		return err
 	}
 
-	sign := ed25519.Sign(PrivateKeyBytes(), list.Bytes())
+	pri, err := hex.DecodeString(key)
+	if err != nil {
+		return err
+	}
+	sign := ed25519.Sign(pri, list.Bytes())
 	//写入签名文件
-	w, err = zipWriter.Create(internal.SignName)
+	w, err = zipWriter.Create(SignName)
 	if err != nil {
 		return err
 	}

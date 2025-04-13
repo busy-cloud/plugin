@@ -48,7 +48,7 @@ func Shutdown() (err error) {
 }
 
 func load() error {
-	dir := path.Join("plugins")
+	dir := path.Join(RootPath)
 	_ = os.MkdirAll(dir, os.ModePerm)
 
 	ds, err := os.ReadDir(dir)

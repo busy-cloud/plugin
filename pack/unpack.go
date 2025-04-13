@@ -7,7 +7,6 @@ import (
 	"crypto/ed25519"
 	"encoding/hex"
 	"errors"
-	"github.com/busy-cloud/plugin/internal"
 	"github.com/god-jason/iot-master/bin"
 	"io"
 	"os"
@@ -23,7 +22,7 @@ func Unpack(filename string, target string) error {
 	defer reader.Close()
 
 	//读取签名单
-	sign, err := reader.Open(internal.SignName)
+	sign, err := reader.Open(SignName)
 	if err != nil {
 		return err
 	}
@@ -33,7 +32,7 @@ func Unpack(filename string, target string) error {
 	}
 
 	//读取校验单
-	list, err := reader.Open(internal.ListName)
+	list, err := reader.Open(ListName)
 	if err != nil {
 		return err
 	}
