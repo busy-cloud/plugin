@@ -42,7 +42,7 @@ func Unpack(filename string, target string) error {
 	}
 
 	//验证签名
-	ret := ed25519.Verify(PublicKeyBytes(), lists, signs)
+	ret := ed25519.Verify(publicKey, lists, signs)
 	if !ret {
 		return errors.New("invalid signature")
 	}

@@ -1,23 +1,12 @@
 package pack
 
 import (
-	"crypto/ed25519"
-	"encoding/hex"
+	_ "embed"
 )
 
-const PublicKey = "4f851cec1f93a757037fbb7771aead9a346df9cdd1cf623a8c00b691ac369ed5"
+//go:embed public.key
+var publicKey []byte
 
-//const PrivateKey = ""
-
-func PublicKeyBytes() []byte {
-	var pubKey, _ = hex.DecodeString(PublicKey)
-	return pubKey
-}
-
-func GenerateKeyPair() (string, string, error) {
-	pub, pri, err := ed25519.GenerateKey(nil)
-	if err != nil {
-		return "", "", err
-	}
-	return hex.EncodeToString(pub), hex.EncodeToString(pri), err
+func PublicKey() []byte {
+	return publicKey
 }

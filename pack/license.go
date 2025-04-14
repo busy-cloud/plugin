@@ -45,25 +45,13 @@ func (l *License) Decode(lic string) error {
 	return json.Unmarshal(buf, l)
 }
 
-func (l *License) Sign(privateKey string) error {
-	pri, err := hex.DecodeString(privateKey)
-	if err != nil {
-		return err
-	}
-
+func (l *License) Sign(privateKey []byte) {
 	data := l.String()
-	sign := ed25519.Sign(pri, []byte(data))
+	sign := ed25519.Sign(privateKey, []byte(data))
 	l.Signature = hex.EncodeToString(sign)
-
-	return nil
 }
 
-func (l *License) Verify(publicKey string) error {
-	pub, err := hex.DecodeString(publicKey)
-	if err != nil {
-		return err
-	}
-
+func (l *License) Verify() error {
 	sign, err := hex.DecodeString(l.Signature)
 	if err != nil {
 		return err
@@ -71,7 +59,7 @@ func (l *License) Verify(publicKey string) error {
 
 	//检查签名
 	data := l.String()
-	ret := ed25519.Verify(pub, []byte(data), sign)
+	ret := ed25519.Verify(publicKey, []byte(data), sign)
 	if ret == false {
 		return errors.New("license verify error")
 	}
