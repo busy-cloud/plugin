@@ -3,6 +3,7 @@ package internal
 import (
 	_ "embed"
 	"github.com/busy-cloud/boat/api"
+	"github.com/busy-cloud/plugin/plugin"
 	"github.com/gin-gonic/gin"
 	"io"
 	"os"
@@ -20,8 +21,8 @@ func init() {
 	bootTime := time.Now()
 
 	api.Register("GET", "plugin/list", func(ctx *gin.Context) {
-		var as []*Plugin
-		plugins.Range(func(name string, item *Plugin) bool {
+		var as []*plugin.Plugin
+		plugins.Range(func(name string, item *plugin.Plugin) bool {
 			as = append(as, item)
 			return true
 		})
