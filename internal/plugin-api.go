@@ -72,4 +72,37 @@ func init() {
 		ctx.Header("Content-Type", "image/png")
 		_, _ = ctx.Writer.Write(buf)
 	})
+
+	api.RegisterAdmin("POST", "plugin/install", func(ctx *gin.Context) {
+		file, err := ctx.FormFile("file")
+		if err != nil {
+			api.Error(ctx, err)
+			return
+		}
+		f, err := file.Open()
+		if err != nil {
+			api.Error(ctx, err)
+			return
+		}
+		defer f.Close()
+
+		f2, err := os.CreateTemp("plugin", "install-*")
+		if err != nil {
+			api.Error(ctx, err)
+			return
+		}
+		_, err = io.Copy(f2, f)
+		if err != nil {
+			api.Error(ctx, err)
+			return
+		}
+
+		err = plugin.Unpack(publicKey, f2.Name(), RootPath)
+		if err != nil {
+			api.Error(ctx, err)
+			return
+		}
+
+		api.OK(ctx, nil)
+	})
 }

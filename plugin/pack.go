@@ -1,4 +1,4 @@
-package pack
+package plugin
 
 import (
 	"archive/zip"
@@ -13,7 +13,7 @@ import (
 )
 
 func Pack(key []byte, dir string, out string) error {
-	dir = strings.ReplaceAll(dir, "\\", "/") //全部使用unix分隔符
+	//dir = strings.ReplaceAll(dir, "\\", "/") //全部使用unix分隔符
 
 	f, err := os.Create(out)
 	if err != nil {

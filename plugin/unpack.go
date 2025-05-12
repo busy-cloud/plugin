@@ -1,4 +1,4 @@
-package pack
+package plugin
 
 import (
 	"archive/zip"
@@ -14,7 +14,7 @@ import (
 	"strings"
 )
 
-func Unpack(filename string, target string) error {
+func Unpack(key []byte, filename string, dir string) error {
 	reader, err := zip.OpenReader(filename)
 	if err != nil {
 		return err
@@ -42,7 +42,7 @@ func Unpack(filename string, target string) error {
 	}
 
 	//验证签名
-	ret := ed25519.Verify(publicKey, lists, signs)
+	ret := ed25519.Verify(key, lists, signs)
 	if !ret {
 		return errors.New("invalid signature")
 	}
@@ -89,7 +89,7 @@ func Unpack(filename string, target string) error {
 		if f.FileInfo().IsDir() {
 			continue
 		}
-		fn := filepath.Join(target, f.Name)
+		fn := filepath.Join(dir, f.Name)
 		_ = os.MkdirAll(filepath.Dir(fn), os.ModePerm)
 		file, err := f.Open()
 		if err != nil {

@@ -1,4 +1,4 @@
-package pack
+package plugin
 
 import (
 	"crypto/ed25519"
@@ -51,7 +51,7 @@ func (l *License) Sign(privateKey []byte) {
 	l.Signature = hex.EncodeToString(sign)
 }
 
-func (l *License) Verify() error {
+func (l *License) Verify(publicKey []byte) error {
 	sign, err := hex.DecodeString(l.Signature)
 	if err != nil {
 		return err
