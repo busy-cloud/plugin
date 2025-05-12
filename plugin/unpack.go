@@ -104,6 +104,9 @@ func Unpack(key []byte, filename string, dir string) error {
 		defer out.Close()
 
 		_, err = io.Copy(out, file)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil

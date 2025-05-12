@@ -73,7 +73,7 @@ func init() {
 		_, _ = ctx.Writer.Write(buf)
 	})
 
-	api.RegisterAdmin("POST", "plugin/install", func(ctx *gin.Context) {
+	api.RegisterAdmin("POST", "plugin/import", func(ctx *gin.Context) {
 		file, err := ctx.FormFile("file")
 		if err != nil {
 			api.Error(ctx, err)
@@ -91,6 +91,8 @@ func init() {
 			api.Error(ctx, err)
 			return
 		}
+		defer f2.Close()
+
 		_, err = io.Copy(f2, f)
 		if err != nil {
 			api.Error(ctx, err)
@@ -105,4 +107,13 @@ func init() {
 
 		api.OK(ctx, nil)
 	})
+
+	api.RegisterAdmin("GET", "plugin/:app/install", func(ctx *gin.Context) {
+
+	})
+
+	api.RegisterAdmin("GET", "plugin/:app/delete", func(ctx *gin.Context) {
+
+	})
+
 }
